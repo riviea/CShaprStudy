@@ -10,7 +10,7 @@ namespace CSharpStudy
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("{0}", Solution.solution11(11));
+            Console.WriteLine("{0}", Solution.solution12(-5, 0));
         }
     }
 }
