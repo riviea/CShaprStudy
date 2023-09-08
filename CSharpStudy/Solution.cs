@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,9 @@ namespace CSharpStudy
 {
     internal class Solution
     {
+        // 문제 목록 출저: 
+        // https://teamsparta.notion.site/4dfcd24e41604177a10e696209b8094f
+
         public static long solution(long n)
         {
             long sqrt = (long)Math.Sqrt(n);
@@ -62,6 +66,33 @@ namespace CSharpStudy
             Console.WriteLine($"{a}, {b}, {answer}, {answer2}");
 
             return answer;
+        }
+
+        /// <summary>
+        /// https://school.programmers.co.kr/learn/courses/30/lessons/12943
+        /// </summary>
+        public static int solution13(long num)
+        {
+            int count = 0;
+
+            if (num == 1)
+                return 1;
+            while (num!=1)
+            {
+                if (num == 1)
+                    break;
+                else if (count >= 500)
+                    return -1;
+
+                if (num % 2 == 0)
+                    num /= 2;
+                else
+                    num = num * 3 + 1;
+
+                count++;
+            }
+
+            return count;
         }
     }
 }
