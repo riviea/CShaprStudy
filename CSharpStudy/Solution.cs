@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -93,6 +94,83 @@ namespace CSharpStudy
             }
 
             return count;
+        }
+
+        public static string solution14(string[] seoul)
+        {
+            int cnt;
+            for (cnt = 0; cnt < seoul.Length; cnt++)
+                if (seoul[cnt].Contains("Kim"))
+                    break;
+
+            return "김서방은 " + cnt.ToString() + "에 있다";
+        }
+
+        public static int[] solution15(int[] arr, int divisor)
+        {
+            List<int> list = new List<int>();
+
+            foreach(int i in arr)
+            {
+                if (i % divisor == 0 && !(list.Contains(i)))
+                    list.Add(i);
+            }
+
+            if (list.Count == 0)
+                list.Add(-1);
+
+            list.Sort();
+
+            return list.ToArray();
+        }
+
+        public static int solution16(int[] absolutes, bool[] signs)
+        {
+            int answer=0;
+            for(int i=0; i<absolutes.Length; ++i)
+            {
+                int sign = signs[i] ? 1 : -1;
+                int num = absolutes[i] * sign;
+                answer += num;
+            }
+
+            return answer;
+        }
+
+        public static string solution17(string phone_number)
+        {
+            char[] str = phone_number.ToCharArray();
+            for (int i = 0; i < phone_number.Length - 4; ++i)
+                str[i] = '*';
+
+            string answer = new string(str);
+            return answer;
+        }
+
+        public static int solution18(int[] numbers)
+        {
+            int total = 45;
+            int answer = 0;
+            for (int i = 0; i < numbers.Length; ++i)
+                answer += numbers[i];
+            return total - answer;
+        }
+
+        public static int[] solution19(int[] arr)
+        {
+            if (arr.Length <= 1)
+                return new int[1] { -1 };
+
+            int min = arr.Min(i => i);
+            List<int> list = new List<int>();
+            foreach(int i in arr)
+            {
+                if (i == min)
+                    continue;
+                list.Add(i);
+            }
+
+            return list.ToArray();
         }
     }
 }
