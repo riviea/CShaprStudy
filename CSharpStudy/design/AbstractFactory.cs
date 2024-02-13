@@ -6,70 +6,99 @@ using System.Threading.Tasks;
 
 namespace CSharpStudy.design
 {
-    public abstract class Creator
+    public abstract class AbstractFactory
     {
-        public void someOperation()
+        protected abstract IProduct CreateProduct();
+        public IProduct GetProduct()
         {
-            iProduct p = createProduct();
-            p.doStuff();
+            IProduct product = CreateProduct();
+            product.PrintProductType();
+            return product;
         }
-
-        public abstract iProduct createProduct();
     }
 
-    public class ConcreteCreateA : Creator
+    //Factory Mathod:
+    public enum ProductType
     {
-        public override iProduct createProduct()
+        ProductA, ProductB
+    }
+
+    public class FactoryMathod
+    {
+        public IProduct SomeOperation(ProductType type)
+        {
+            IProduct product = CreateProduct(type);
+            product.PrintProductType();
+            return product;
+        }
+
+        public IProduct CreateProduct(ProductType type)
+        {
+            switch (type)
+            {
+                case ProductType.ProductA:
+                    return new ConcreteProductA();
+                case ProductType.ProductB:
+                    return new ConcreteProductB();
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+    }
+
+    // Abstract Factory:
+    public class ProductFactoryA : AbstractFactory
+    {
+        protected override IProduct CreateProduct()
         {
             return new ConcreteProductA();
         }
     }
 
-    public class ConcreteCreateB : Creator
+    public class ProductFactoryB : AbstractFactory
     {
-        public override iProduct createProduct()
+        protected override IProduct CreateProduct()
         {
-            return new ConcreteProductB();
+            return new ConcreteProductB();  
         }
     }
 
-    public interface iProduct
+    public interface IProduct
     {
-        public void doStuff();
+        public void PrintProductType();
     }
 
-    public class ConcreteProductA : iProduct
+    public class ConcreteProductA : IProduct
     {
-        public void doStuff()
+        public void PrintProductType()
         {
-            Console.WriteLine("doStuff from ConcreteProductA.");
+            Console.WriteLine("This is ConcreteProductA.");
         }
     }
 
-    public class ConcreteProductB : iProduct
+    public class ConcreteProductB : IProduct
     {
-        public void doStuff()
+        public void PrintProductType()
         {
-            Console.WriteLine("doStuff from ConcreteProductB.");
+            Console.WriteLine("This is ConcreteProductB.");
         }
     }
 
-    internal class Abstract_Factory
+    public class FactoryTest
     {
-        public Creator creator;
-
-        public void Foo()
+        public static void Foo()
         {
-            string config = "ccB";
+            //Factory Mathod:
+            FactoryMathod fm = new FactoryMathod();
+            fm.SomeOperation(ProductType.ProductA);
+            fm.SomeOperation(ProductType.ProductB);
 
-            if (config.CompareTo("ccA") == 0)
-                creator = new ConcreteCreateA();
-            else if (config.CompareTo("ccB") == 0)
-                creator = new ConcreteCreateB();
-            else
-                throw new Exception("Error!");
+            //Abstract Factory:
+            ProductFactoryA fa = new ProductFactoryA();
+            ProductFactoryB fb = new ProductFactoryB();
 
-            creator.someOperation();
+            IProduct product1 = fa.GetProduct();
+            IProduct product2 = fb.GetProduct();
         }
     }
 }

@@ -15,8 +15,4 @@
     <None Remove="NewFile1.txt" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Include="question\Program.cs" />
-  </ItemGroup>
-
 </Project>

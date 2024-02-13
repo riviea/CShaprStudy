@@ -6,24 +6,24 @@ namespace EventTest
 {
     public static class EventTestClass
     {
-        //public static void Main()
-        //{
-        //    var manager = new UIManager();
-        //    var button = new Button();
-        //    manager.Initialize();
+        public static void Foo()
+        {
+            var manager = new UIManager();
+            var button = new Button();
+            manager.Initialize();
 
-        //    button.Click();
-        //    button.Click();
-        //    button.Click();
+            button.Click();
+            button.Click();
+            button.Click();
 
-        //    //GameObject.Destroy
-        //    manager.Dispose();
-        //    manager.Initialize();
+            //GameObject.Destroy
+            manager.Dispose();
+            manager.Initialize();
 
-        //    button.Click();
-        //    button.Click();
-        //    button.Click();
-        //}
+            button.Click();
+            button.Click();
+            button.Click();
+        }
     }
 
     public class UIManager : IDisposable
