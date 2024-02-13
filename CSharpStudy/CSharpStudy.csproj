@@ -16,11 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Program.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
+    <None Include="question\Program.cs" />
   </ItemGroup>
 
 </Project>

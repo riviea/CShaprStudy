@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpStudy.design;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,10 @@ namespace CSharpStudy
         }
         static void Main(string[] args)
         {
-            EventTest.EventTestClass.Main();
+            Abstract_Factory test = new Abstract_Factory();
+            test.Foo();
+
+            //EventTest.EventTestClass.Main();
 
             return;
             //Console.WriteLine("{0}", Solution.solution21(10));
