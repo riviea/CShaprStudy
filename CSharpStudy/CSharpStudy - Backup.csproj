@@ -19,8 +19,4 @@
     <None Include="Program.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>
