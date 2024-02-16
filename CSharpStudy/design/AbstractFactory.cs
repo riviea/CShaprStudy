@@ -1,22 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CSharpStudy.design
 {
-    public abstract class AbstractFactory
-    {
-        protected abstract IProduct CreateProduct();
-        public IProduct GetProduct()
-        {
-            IProduct product = CreateProduct();
-            product.PrintProductType();
-            return product;
-        }
-    }
-
     //Factory Mathod:
     public enum ProductType
     {
@@ -25,15 +15,9 @@ namespace CSharpStudy.design
 
     public class FactoryMathod
     {
-        public IProduct SomeOperation(ProductType type)
+        public IProduct MakeProduct(ProductType type)
         {
-            IProduct product = CreateProduct(type);
-            product.PrintProductType();
-            return product;
-        }
-
-        public IProduct CreateProduct(ProductType type)
-        {
+            Console.WriteLine("We will make {0}", type.ToString());
             switch (type)
             {
                 case ProductType.ProductA:
@@ -47,40 +31,63 @@ namespace CSharpStudy.design
     }
 
     // Abstract Factory:
+    public abstract class AbstractFactory
+    {
+        protected abstract IProduct MakeProduct();
+        public IProduct GetProduct()
+        {
+            IProduct product = MakeProduct();
+            product.PrintProductInfo();
+            return product;
+        }
+    }
+
     public class ProductFactoryA : AbstractFactory
     {
-        protected override IProduct CreateProduct()
+        protected override IProduct MakeProduct()
         {
-            return new ConcreteProductA();
+            ConcreteProductA product = new ConcreteProductA();
+            product.maker = GetType().Name;
+
+            return product;
         }
     }
 
     public class ProductFactoryB : AbstractFactory
     {
-        protected override IProduct CreateProduct()
+        protected override IProduct MakeProduct()
         {
-            return new ConcreteProductB();  
+            ConcreteProductB product = new ConcreteProductB();
+            product.maker = GetType().Name;
+            product.legion = "korea";
+
+            return product;
         }
     }
 
     public interface IProduct
     {
-        public void PrintProductType();
+        public void PrintProductInfo();
     }
 
     public class ConcreteProductA : IProduct
     {
-        public void PrintProductType()
+        public string? maker;
+
+        public void PrintProductInfo()
         {
-            Console.WriteLine("This is ConcreteProductA.");
+            Console.WriteLine("This is {0}. Maker: {1}", GetType().Name, maker);
         }
     }
 
     public class ConcreteProductB : IProduct
     {
-        public void PrintProductType()
+        public string? maker;
+        public string? legion;
+
+        public void PrintProductInfo()
         {
-            Console.WriteLine("This is ConcreteProductB.");
+            Console.WriteLine("This is {0}, Maker: {1}, legion: {2}", GetType().Name, maker, legion);
         }
     }
 
@@ -90,12 +97,12 @@ namespace CSharpStudy.design
         {
             //Factory Mathod:
             FactoryMathod fm = new FactoryMathod();
-            fm.SomeOperation(ProductType.ProductA);
-            fm.SomeOperation(ProductType.ProductB);
+            fm.MakeProduct(ProductType.ProductA);
+            fm.MakeProduct(ProductType.ProductB);
 
             //Abstract Factory:
-            ProductFactoryA fa = new ProductFactoryA();
-            ProductFactoryB fb = new ProductFactoryB();
+            AbstractFactory fa = new ProductFactoryA();
+            AbstractFactory fb = new ProductFactoryB();
 
             IProduct product1 = fa.GetProduct();
             IProduct product2 = fb.GetProduct();
